@@ -737,10 +737,6 @@
         <span class="pcard-price" id="pcard-price">$10</span>
       </div>
 
-      <div class="size-tabs" role="group" aria-label="Choose a size">
-        <button class="size-tab on" data-price="10" data-size="8oz">8 oz</button>
-        <button class="size-tab" data-price="12" data-size="10oz">10 oz &middot; $12</button>
-      </div>
 
       <div class="flavor-tabs" role="group" aria-label="Choose a flavor">
         <button class="flavor-tab ft-orange" data-slug="orange" data-name="Orange">Orange</button>
@@ -889,14 +885,7 @@ ok    </div>
   const pcardPrice = document.getElementById('pcard-price');
   const btnCart    = document.getElementById('btn-cart');
 
-  // Size toggle
-  document.querySelectorAll('.size-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.size-tab').forEach(b => b.classList.remove('on'));
-      btn.classList.add('on');
-      pcardPrice.textContent = '$' + btn.dataset.price;
-    });
-  });
+
 
   // Flavor selector
   document.querySelectorAll('.flavor-tab').forEach(btn => {
