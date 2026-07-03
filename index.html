@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steve's Granola — It's just granola.</title>
+  <link rel="icon" type="image/png" href="Steve1.png">
+  <meta name="description" content="Small-batch, stone-baked granola. Three flavors. One honest bag at a time.">
+
+  <!--
+    SHOP CONFIG — update this URL when your custom domain is ready.
+    Current:  https://steves-granola.bigcartel.com
+    Future:   https://shop.stevesgranola.com
+    Verify product slugs match your Big Cartel admin URLs.
+  -->
+
+  <!-- Exact fonts extracted from the PDF: Newsreader · Public Sans · Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Tokens ─────────────────────────────────────────── */
+    :root {
+      /* Exact colors sampled from the PDF */
+      --cream:  #FBF5E8;
+      --dark:   #2B2118;
+      --orange: #E2571F;
+      --yellow: #F4C542;
+      --gold:   #C89010;
+      --white:  #FFFFFF;
+      --mid:    #6B5840;
+
+      --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+      --sans:  'Public Sans', system-ui, -apple-system, sans-serif;
+      --mono:  'Space Mono', 'Courier New', monospace;
+    }
+
+    /* ── Reset ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+/* ── Hero ───────────────────────────────────────────── */
+    /* Split background: cream left half, yellow right half */
+    .hero-outer {
+      background: linear-gradient(to right, var(--cream) 50%, var(--yellow) 50%);
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      padding: 72px 60px 88px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: .16em;
+      color: var(--mid);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(54px, 7.5vw, 88px);
+      font-weight: 400;
+      line-height: 1.0;
+      letter-spacing: -.02em;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .star { color: var(--gold); }
+
+    .hero-sub {
+      font-size: 14.5px;
+      color: var(--mid);
+      line-height: 1.7;
+      max-width: 360px;
+      margin-bottom: 36px;
+    }
+
+    .hero-sub em { font-style: italic; color: var(--dark); }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-buy {
+      display: inline-block;
+      background: var(--dark);
+      color: var(--cream);
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background .18s;
+    }
+
+    .btn-buy:hover { background: var(--orange); }
+
+    .hero-note {
+      font-size: 12.5px;
+      color: var(--mid);
+    }
+
+    /* Product bag placeholder — replace with <img> */
+    .bag-ph {
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 3/4;
+      border-radius: 12px;
+      border: 1.5px dashed rgba(0, 0, 0, .2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      color: rgba(0, 0, 0, .35);
+      text-align: center;
+      padding: 24px;
+      line-height: 1.8;
+      margin: 0 auto;
+    }
+
+    .bag-ph svg { opacity: .4; }
+
+    /* ── Flavors ────────────────────────────────────────── */
+    .flavors {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 60px;
+    }
+
+    .flavors-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .flavors-head h2 {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.2vw, 40px);
+      font-weight: 400;
+      color: var(--dark);
+      letter-spacing: -.01em;
+    }
+
+    .mix-match {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: .16em;
+      color: var(--mid);
+      padding-bottom: 4px;
+    }
+
+    .flavors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .fcard {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid rgba(0, 0, 0, .07);
+      display: block;
+      transition: transform .22s, box-shadow .22s;
+    }
+
+/* Diagonal stripe pattern — matching the PDF exactly */
+    .fcard-img {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: .12em;
+      color: rgba(0, 0, 0, .25);
+    }
+
+    .fi-orange {
+      background: repeating-linear-gradient(
+        -45deg,
+        #F0E5CE 0px, #F0E5CE 10px,
+        #E8DAC0 10px, #E8DAC0 20px
+      );
+    }
+
+    .fi-honey {
+      background: repeating-linear-gradient(
+        -45deg,
+        #EDD89A 0px, #EDD89A 10px,
+        #E4CC85 10px, #E4CC85 20px
+      );
+    }
+
+    .fi-cocoa {
+      background: repeating-linear-gradient(
+        -45deg,
+        #D8C8B0 0px, #D8C8B0 10px,
+        #CCBCA2 10px, #CCBCA2 20px
+      );
+    }
+
+    .fcard-body { padding: 18px 20px 24px; }
+
+    .fcard-name {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 5px;
+    }
+
+    .fcard-desc {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+
+    /* ── Purchase Banner ────────────────────────────────── */
+    .purchase {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 60px 80px;
+    }
+
+    .banner {
+      background: var(--orange);
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 48px;
+      padding: 56px 60px;
+    }
+
+    .banner-eyebrow {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: .16em;
+      color: rgba(255, 255, 255, .55);
+      margin-bottom: 12px;
+    }
+
+    .banner h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.8vw, 46px);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.08;
+      letter-spacing: -.015em;
+      margin-bottom: 14px;
+    }
+
+    .banner-sub {
+      font-size: 14px;
+      color: rgba(255, 255, 255, .8);
+      line-height: 1.65;
+      max-width: 300px;
+    }
+
+    /* Product card */
+    .pcard {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 24px;
+      width: 280px;
+      flex-shrink: 0;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, .2);
+    }
+
+    .pcard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      gap: 8px;
+    }
+
+    .pcard-name {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+
+    .pcard-price {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--gold);
+      font-weight: 400;
+      flex-shrink: 0;
+    }
+
+    /* Size selector — outlined pill toggle */
+    .size-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .size-tab {
+      padding: 8px 6px;
+      border-radius: 30px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      border: 1.5px solid rgba(0, 0, 0, .2);
+      background: transparent;
+      color: var(--mid);
+      text-align: center;
+      transition: all .12s;
+    }
+
+    .size-tab.on {
+      border-color: var(--dark);
+      color: var(--dark);
+      background: transparent;
+      font-weight: 600;
+    }
+
+    /* Flavor selector — color-coded pills */
+    .flavor-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-bottom: 16px;
+    }
+
+    .flavor-tab {
+      padding: 8px 4px;
+      border-radius: 30px;
+      font-family: var(--sans);
+      font-size: 11.5px;
+      font-weight: 500;
+      border: 2px solid transparent;
+      text-align: center;
+      transition: border-color .12s;
+      color: var(--dark);
+    }
+
+    .ft-orange { background: var(--yellow); }
+    .ft-honey  { background: #EDD89A; }
+    .ft-cocoa  { background: #D8C8B0; }
+
+    .flavor-tab.on { border-color: var(--dark); }
+
+    /* Add to cart */
+    .btn-cart {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 13px;
+      border-radius: 30px;
+      border: none;
+      background: var(--dark);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .18s;
+      text-decoration: none;
+    }
+
+    .btn-cart:hover { background: #4A3820; }
+
+    /* ── What's Inside ──────────────────────────────────── */
+    .inside {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 60px;
+    }
+
+    .inside-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 80px;
+    }
+
+    /* Stripe image — same diagonal pattern as the flavor cards */
+    .inside-img {
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: .1em;
+      color: rgba(0, 0, 0, .25);
+      text-align: center;
+      line-height: 2;
+      background: repeating-linear-gradient(
+        -45deg,
+        #F5EBD4 0px, #F5EBD4 10px,
+        #EFE0C2 10px, #EFE0C2 20px
+      );
+      padding: 24px;
+    }
+
+    .inside-content h2 {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.2vw, 40px);
+      font-weight: 400;
+      color: var(--dark);
+      letter-spacing: -.01em;
+      margin-bottom: 14px;
+    }
+
+    .inside-desc {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.72;
+      margin-bottom: 28px;
+    }
+
+    /* Ingredient pills — outlined, white background */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 7px 16px;
+      border-radius: 30px;
+      border: 1px solid rgba(0, 0, 0, .18);
+      font-size: 13px;
+      color: var(--dark);
+      background: var(--white);
+    }
+
+    /* ── Meet Steve ────────────────────────────────────── */
+    .steven {
+      background: var(--yellow);
+      border-bottom: 4px solid var(--gold);
+      padding: 80px 60px;
+    }
+
+    .steven-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .steven-eyebrow {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: .16em;
+      color: var(--dark);
+      opacity: .5;
+      margin-bottom: 12px;
+    }
+
+    .steven-inner h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400;
+      color: var(--dark);
+      letter-spacing: -.01em;
+      margin-bottom: 22px;
+    }
+
+    .steven-inner p {
+      font-size: 14.5px;
+      color: var(--dark);
+      line-height: 1.78;
+      margin-bottom: 16px;
+      opacity: .85;
+    }
+
+    .steven-art {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    /* ── Process ────────────────────────────────────────── */
+    .process {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 60px 0;
+    }
+
+    .process h2 {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.2vw, 40px);
+      font-weight: 400;
+      color: var(--dark);
+      letter-spacing: -.01em;
+      margin-bottom: 48px;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .step-num {
+      font-family: var(--serif);
+      font-size: 38px;
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    .step-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 13.5px;
+      color: var(--mid);
+      line-height: 1.65;
+    }
+
+    /* ── Reviews ────────────────────────────────────────── */
+    .reviews {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 60px 88px;
+    }
+
+    .reviews h2 {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.2vw, 40px);
+      font-weight: 400;
+      color: var(--dark);
+      letter-spacing: -.01em;
+      margin-bottom: 36px;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .rcard {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, .08);
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .review-text {
+      font-size: 14.5px;
+      color: var(--dark);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .review-by {
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      padding: 52px 60px 40px;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .25);
+    }
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+.hero-outer { background: var(--cream); }
+      .hero { grid-template-columns: 1fr; padding: 48px 24px 56px; gap: 0; }
+      .hero-bag { display: none; }
+
+      .flavors, .purchase, .inside, .process, .reviews { padding-left: 24px; padding-right: 24px; }
+
+      .flavors-grid { grid-template-columns: 1fr; }
+      .banner { grid-template-columns: 1fr; padding: 36px 28px; gap: 28px; }
+      .pcard { width: 100%; }
+
+      .inside-grid { grid-template-columns: 1fr; gap: 40px; }
+      .inside-img { aspect-ratio: 16/9; }
+
+      .steven { padding: 60px 24px; }
+      .steven-inner { grid-template-columns: 1fr; gap: 36px; }
+      .steven-art { justify-content: center; }
+
+      .process-grid { grid-template-columns: 1fr; gap: 36px; }
+
+      .reviews-grid { grid-template-columns: 1fr; }
+
+      footer { padding: 40px 24px 32px; }
+      .footer-top { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-bottom { flex-direction: column; gap: 6px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fcard { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- ══════════════════════════════════
+     HERO — cream left / yellow right
+══════════════════════════════════ -->
+<div class="hero-outer">
+  <div class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">SMALL BATCH &middot; HANDMADE &middot; EST. 2026</p>
+      <h1>It's just<br>granola.<span class="star">*</span></h1>
+      <p class="hero-sub">*Okay, it's <em>really good</em> granola. Oven-baked by hand in small batches, one bag at a time.</p>
+      <div class="hero-actions">
+        <a class="btn-buy" href="https://steves-granola.bigcartel.com/product/classic-honey-oat">Buy a bag &mdash; $10</a>
+        <span class="hero-note">8can oz &middot; ships fresh</span>
+      </div>
+    </div>
+    <div class="hero-bag">
+      <!--
+        Replace this placeholder with your product bag photo:
+        <img src="bag.jpg" alt="Steve's Granola bag">
+      -->
+      <div class="bag-ph">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true">
+          <path d="M8 14h24v20a2 2 0 01-2 2H10a2 2 0 01-2-2V14z"/>
+          <path d="M14 14v-3a6 6 0 0112 0v3"/>
+          <circle cx="20" cy="24" r="5"/>
+        </svg>
+        ADD PRODUCT BAG<br>PHOTO HERE
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     FLAVORS
+══════════════════════════════════ -->
+<section id="flavors" class="flavors">
+  <div class="flavors-head">
+    <h2>Three flavors, one obsession</h2>
+  </div>
+  <div class="flavors-grid">
+
+    <div class="fcard">
+      <div class="fcard-img fi-orange">ORANGE BAG</div>
+      <div class="fcard-body">
+        <div class="fcard-name">Orange</div>
+        <p class="fcard-desc">Bright citrus zest &amp; toasted almond.</p>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-img fi-honey">HONEY-OAT BAG</div>
+      <div class="fcard-body">
+        <div class="fcard-name">Classic Honey-Oat</div>
+        <p class="fcard-desc">Wildflower honey &amp; a pinch of salt.</p>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-img fi-cocoa">COCOA BAG</div>
+      <div class="fcard-body">
+        <div class="fcard-name">Cocoa</div>
+        <p class="fcard-desc">Dark cocoa, coconut &amp; cacao nibs.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     PURCHASE BANNER
+══════════════════════════════════ -->
+<section class="purchase">
+  <div class="banner">
+
+    <div class="banner-copy">
+      <h2>One bag. Ten dollars.<br>No fuss.</h2>
+      <p class="banner-sub">Choose your size, pick a flavor, and we'll bake it this week.</p>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-top">
+        <span class="pcard-name" id="pcard-name">Classic Honey-Oat</span>
+        <span class="pcard-price" id="pcard-price">$10</span>
+      </div>
+
+      <div class="size-tabs" role="group" aria-label="Choose a size">
+        <button class="size-tab on" data-price="10" data-size="8oz">8 oz</button>
+        <button class="size-tab" data-price="12" data-size="10oz">10 oz &middot; $12</button>
+      </div>
+
+      <div class="flavor-tabs" role="group" aria-label="Choose a flavor">
+        <button class="flavor-tab ft-orange" data-slug="orange" data-name="Orange">Orange</button>
+        <button class="flavor-tab ft-honey on" data-slug="classic-honey-oat" data-name="Classic Honey-Oat">Honey-Oat</button>
+        <button class="flavor-tab ft-cocoa" data-slug="cocoa" data-name="Cocoa">Cocoa</button>
+      </div>
+
+      <a class="btn-cart" id="btn-cart" href="https://steves-granola.bigcartel.com/product/classic-honey-oat">
+        Add to cart
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     WHAT'S INSIDE
+══════════════════════════════════ -->
+<section id="ingredients" class="inside">
+  <div class="inside-grid">
+
+    <!--
+      Replace this with a flat-lay photo:
+      <img src="flatlay.jpg" alt="Granola ingredients flat lay on linen">
+    -->
+    <div class="inside-img">
+      FLAT-LAY &mdash; OATS, HONEY,<br>ALMONDS, SEEDS ON LINEN
+    </div>
+
+    <div class="inside-content">
+      <h2>What's inside</h2>
+      <p class="inside-desc">Seven ingredients you can pronounce. Nothing you can't.<br>No refined sugar, no preservatives, no mystery.</p>
+      <div class="pills">
+        <span class="pill">Rolled oats</span>
+        <span class="pill">Wildflower honey</span>
+        <span class="pill">Almonds</span>
+        <span class="pill">Pumpkin seeds</span>
+        <span class="pill">Coconut oil</span>
+        <span class="pill">Vanilla</span>
+        <span class="pill">Sea salt</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     MEET STEVEN — full-width yellow
+══════════════════════════════════ -->
+<section id="story" class="steven">
+  <div class="steven-inner">
+
+    <div class="steven-text">
+      <h2>Meet Steve.</h2>
+      <p>It started in the home kitchen. Friends kept asking for the recipe, so he kept making more. What began as weekend gifts turned into a whole family affair &mdash; every bag still gets packed by hand.</p>
+ok    </div>
+
+    <div class="steven-art">
+      <img src="Steve1.png" alt="Illustration of Steve" style="max-width:360px;width:100%;mix-blend-mode:multiply;">
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     HOW IT'S MADE
+══════════════════════════════════ -->
+<section class="process">
+  <h2>How it's made</h2>
+  <div class="process-grid">
+    <div>
+      <div class="step-num">01</div>
+      <p class="step-title">Mixed by hand</p>
+      <p class="step-desc">Small batches, folded together in one bowl at a time.</p>
+    </div>
+    <div>
+      <div class="step-num">02</div>
+      <p class="step-title">Slow-baked golden</p>
+      <p class="step-desc">Low and slow until every cluster is crisp and toasty.</p>
+    </div>
+    <div>
+      <div class="step-num">03</div>
+      <p class="step-title">Bagged fresh</p>
+      <p class="step-desc">Sealed and shipped within a day, so it lands crunchy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     REVIEWS
+══════════════════════════════════ -->
+<section id="reviews" class="reviews">
+  <h2>What people say</h2>
+  <div class="reviews-grid">
+
+    <div class="rcard">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">&ldquo;The only granola that tastes homemade &mdash; because it is.&rdquo;</p>
+      <span class="review-by">Dana R.</span>
+    </div>
+
+    <div class="rcard">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">&ldquo;The orange doesn&rsquo;t last a week here. My kids ask for it by name.&rdquo;</p>
+      <span class="review-by">Marcus T.</span>
+    </div>
+
+    <div class="rcard">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">&ldquo;A handwritten note in my first order. Who does that anymore?&rdquo;</p>
+      <span class="review-by">Priya K.</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Steve&rsquo;s Granola. All rights reserved.</span>
+    <span>Handmade in small batches.</span>
+  </div>
+</footer>
+
+<script>
+  // ── SHOP CONFIG ──────────────────────────────────────────────────
+  // To update all product links at once, change SHOP here.
+  // Current:  https://steves-granola.bigcartel.com
+  // Future:   https://shop.stevesgranola.com
+  //
+  // Verify these slugs match your actual Big Cartel product URLs
+  // (Settings → Products → click a product to see its URL slug).
+  const SHOP = 'https://steves-granola.bigcartel.com';
+  const PRODUCTS = {
+    'orange':            SHOP + '/product/orange',
+    'classic-honey-oat': SHOP + '/product/classic-honey-oat',
+    'cocoa':             SHOP + '/product/cocoa',
+  };
+
+  // ── PRODUCT CARD ─────────────────────────────────────────────────
+  let activeFlavor = 'classic-honey-oat';
+
+  const pcardName  = document.getElementById('pcard-name');
+  const pcardPrice = document.getElementById('pcard-price');
+  const btnCart    = document.getElementById('btn-cart');
+
+  // Size toggle
+  document.querySelectorAll('.size-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.size-tab').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      pcardPrice.textContent = '$' + btn.dataset.price;
+    });
+  });
+
+  // Flavor selector
+  document.querySelectorAll('.flavor-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.flavor-tab').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      activeFlavor = btn.dataset.slug;
+      pcardName.textContent = btn.dataset.name;
+      btnCart.href = PRODUCTS[activeFlavor];
+    });
+  });
+</script>
+
+</body>
+</html>
